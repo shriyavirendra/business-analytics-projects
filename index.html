@@ -3,43 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shriya Wadetwar | Business Analytics and AI for Management</title>
+    <title>KKBox Churn Analysis | Shriya Wadetwar</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 24px;
-            line-height: 1.6;
-            color: #222;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+               max-width: 960px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #222; }
         h2 { margin-top: 40px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+        .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+        .kpi { border: 1px solid #ddd; border-radius: 8px; padding: 12px; }
+        .kpi b { display: block; font-size: 1.3em; }
+        .kpi span { color: #666; font-size: 0.9em; }
+        img { max-width: 100%; border: 1px solid #ddd; border-radius: 8px; }
+        .btn { display: inline-block; padding: 10px 16px; background: #1f4e79; color: #fff;
+               text-decoration: none; border-radius: 6px; }
     </style>
-    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 </head>
 
 <body>
-    <h1>Shriya Wadetwar</h1>
-    <p>Business Analyst | Data Analytics | AI</p>
+    <h1>Is KKBox Losing Subscribers or Dropping Them?</h1>
+    <p>Churn analysis of a music-streaming service, by Shriya Wadetwar. Group project, Trinity Business School
+       (Data Management and Visualization, October 2026).<br>
+       Tools: Python, DuckDB, SQL, Tableau. Data: KKBOX WSDM Cup 2018 churn dataset (Kaggle).</p>
 
-    <h2>About Me</h2>
-    <p>
-        Currently pursuing an MSc in Business Analytics and AI for Management
-        at Trinity College Dublin | Business Analyst with 4+ years of experience in Telecom
-    </p>
+    <h2>Overview</h2>
+    <p><b>Research question:</b> What is driving the rise in churn between the February and March 2017 cohorts,
+       how much of it is voluntary versus billing-related, and what does each type cost KKBox?</p>
+    <p><b>Headline:</b> Churn rose from 6.39% to 8.99% in one month while manual cancellations fell
+       by about a third, so the rise is mostly passive: members lapsing, not choosing to leave.</p>
 
-    <h2>Projects</h2>
-    <h3>KKBox Dashboard</h3>
-    <tableau-viz
-        src="https://public.tableau.com/views/dashboardUpdatedUI/KKboxdashboard"
-        width="100%"
-        height="800"
-        toolbar="bottom"
-        hide-tabs>
-    </tableau-viz>
-    <p>
-        <a href="https://public.tableau.com/app/profile/shriya.virendra.wadetwar/viz/dashboardUpdatedUI/KKboxdashboard"
-           target="_blank" rel="noopener">Open the full dashboard on Tableau Public</a>
-    </p>
+    <img src="images/dashboard.png" alt="KKBox churn dashboard screenshot">
+    <p><a class="btn" href="https://public.tableau.com/app/profile/shriya.virendra.wadetwar/viz/dashboardUpdatedUI/KKboxdashboard"
+          target="_blank" rel="noopener">Open the interactive dashboard on Tableau Public</a></p>
+
+    <h2>Key metrics (Feb vs Mar 2017)</h2>
+    <div class="kpis">
+        <div class="kpi"><b>6.39% → 8.99%</b><span>Churn rate (+2.6 pts)</span></div>
+        <div class="kpi"><b>63.4K → 87.3K</b><span>Churned members (+38%)</span></div>
+        <div class="kpi"><b>4.04% → 2.63%</b><span>Manual cancellation rate</span></div>
+        <div class="kpi"><b>0.86 → 0.93</b><span>Billing-to-voluntary ratio</span></div>
+        <div class="kpi"><b>12.48M → 24.64M</b><span>Revenue lost (+97%)</span></div>
+    </div>
+
+    <h2>How it was calculated</h2>
+    <ul>
+        <li><b>Churn rate:</b> churned members ÷ total members in the cohort.</li>
+        <li><b>Voluntary churn:</b> churned members with auto-renew off. <b>Billing-related churn:</b> churned members with auto-renew on (a proxy; failed-payment records were not in the data).</li>
+        <li><b>Billing-to-voluntary ratio:</b> billing churn rate ÷ voluntary churn rate.</li>
+        <li><b>Revenue lost:</b> sum of list price of the plans of churned members.</li>
+        <li><b>Payment failure rate:</b> share of transactions with amount paid of 0 on a priced plan, by payment method.</li>
+        <li><b>Engagement:</b> average listening hours per member per month (days over 24 hours removed).</li>
+    </ul>
+
+    <h2>Key insights</h2>
+    <ul>
+        <li>Billing losses are now almost as large as voluntary ones and growing faster.</li>
+        <li>Voluntary exits account for about 78% of revenue lost, while billing churners carry roughly a third of the revenue per head.</li>
+        <li>March billing churners were highly engaged listeners (about 87.5 hours vs about 106 for retained members), so many were members who wanted to stay.</li>
+        <li>Payment methods 29 and 30 fail 8.96% and 6.04% of the time, against 1.01% for method 40 and 0.03% for method 41.</li>
+    </ul>
+
+    <h2>Recommendations</h2>
+    <ul>
+        <li>Fix payment reliability on methods 29 and 30, or steer members to more reliable methods.</li>
+        <li>Add payment recovery: automatic retries, reminders before card expiry, and a grace period.</li>
+        <li>Prioritise recovery for high-engagement members.</li>
+        <li>Test save offers (discount, downgrade, pause) for voluntary leavers on higher-priced plans.</li>
+        <li>A/B test recovery messages and offers before scaling.</li>
+    </ul>
+
+    <h2>Limitations</h2>
+    <p>Only two cohorts; billing churn is inferred, not confirmed; the failed-payment flag may include free trials or coupons; revenue is list price, not amount paid.</p>
 </body>
 </html>
