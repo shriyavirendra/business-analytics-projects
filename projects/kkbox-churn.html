@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is KKBox losing subscribers or dropping them? | Shriya Wadetwar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Shriya Wadetwar</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="../index.html" >Home</a>
+      <a href="../projects.html" aria-current="page">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap">
+<h1>Is KKBox losing subscribers or dropping them?</h1>
+<p class="lede measure">Churn rose from 6.39% to 8.99% in one month while manual cancellations fell by about a third. The increase is mostly passive: members lapsing, not choosing to leave.</p>
+
+<div class="stat" aria-label="Churn rate rose from 6.39 percent to 8.99 percent">
+  <span class="stat-figure">6.39% to 8.99%</span>
+  <span class="stat-label">Monthly churn rate, February to March 2017</span>
+</div>
+
+<dl class="facts" style="margin-top:24px">
+  <div><dt>Context</dt><dd>Group project, Trinity Business School, Data Management and Visualization (October 2026)</dd></div>
+  <!-- EDIT: add teammates’ names only if they agree -->
+  <div><dt>Team</dt><dd>Group 5. [Add teammates’ names.]</dd></div>
+  <div><dt>Tools</dt><dd>Python, DuckDB, SQL, Tableau</dd></div>
+  <div><dt>Data</dt><dd>KKBOX WSDM Cup 2018 churn dataset on Kaggle (not included in this repository)</dd></div>
+</dl>
+
+<h2>The question</h2>
+<p class="measure">What is driving the rise in churn between the February and March 2017 cohorts, how much of it is voluntary versus billing-related, and what does each type cost KKBox?</p>
+
+<h2>The dashboard</h2>
+<div class="shot">
+  <!-- EDIT: upload your screenshot as images/dashboard.png -->
+  <img src="../images/dashboard.png" alt="Screenshot of the KKBox churn dashboard in Tableau">
+</div>
+<p><a class="button" href="https://public.tableau.com/app/profile/shriya.virendra.wadetwar/viz/dashboardUpdatedUI/KKboxdashboard" target="_blank" rel="noopener">Open the interactive dashboard on Tableau Public</a></p>
+
+<h2>Key metrics</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th scope="col">Metric</th><th scope="col">February 2017</th><th scope="col">March 2017</th><th scope="col">Change</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Total members</th><td>992,931</td><td>970,960</td><td>-2.2%</td></tr>
+    <tr><th scope="row">Churn rate</th><td>6.39%</td><td>8.99%</td><td>+2.6 points</td></tr>
+    <tr><th scope="row">Churned members</th><td>about 63.4K</td><td>about 87.3K</td><td>+38%</td></tr>
+    <tr><th scope="row">Manual cancellation rate</th><td>4.04%</td><td>2.63%</td><td>about -35%</td></tr>
+    <tr><th scope="row">Billing-to-voluntary ratio</th><td>0.86</td><td>0.93</td><td>+0.07</td></tr>
+    <tr><th scope="row">Revenue lost (list price)</th><td>12.48M</td><td>24.64M</td><td>+97%</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>How it was calculated</h2>
+<ul class="plain measure">
+  <li><strong>Churn rate:</strong> churned members divided by total members in the cohort.</li>
+  <li><strong>Voluntary churn:</strong> churned members whose last transaction had auto-renew off. <strong>Billing-related churn:</strong> churned members with auto-renew on. This is a proxy, because failed-payment records were not in the data.</li>
+  <li><strong>Billing-to-voluntary ratio:</strong> billing churn rate divided by voluntary churn rate.</li>
+  <li><strong>Revenue lost:</strong> the sum of the list price of the plans of churned members.</li>
+  <li><strong>Payment failure rate:</strong> share of transactions with an amount paid of 0 on a priced plan, by payment method.</li>
+  <li><strong>Engagement:</strong> average listening hours per member per month, with days over 24 hours removed.</li>
+</ul>
+
+<h2>What the data shows</h2>
+<ul class="plain measure">
+  <li>Billing losses are now almost as large as voluntary ones, and growing faster.</li>
+  <li>Voluntary exits account for about 78% of revenue lost, while billing churners carry roughly a third of the revenue per head.</li>
+  <li>March billing churners were heavy listeners: about 87.5 hours, against about 106 for retained members. Many of them wanted to stay.</li>
+  <li>Payment methods 29 and 30 fail 8.96% and 6.04% of the time, against 1.01% for method 40 and 0.03% for method 41.</li>
+</ul>
+
+<h2>Recommendations</h2>
+<ul class="plain measure">
+  <li>Fix payment reliability on methods 29 and 30, or steer members to more reliable methods.</li>
+  <li>Add payment recovery: automatic retries, reminders before card expiry, and a grace period.</li>
+  <li>Recover high-engagement members first.</li>
+  <li>Test save offers (a discount, a downgrade or a pause) for voluntary leavers on higher-priced plans.</li>
+  <li>A/B test recovery messages and offers before rolling them out.</li>
+</ul>
+
+<h2>Limitations</h2>
+<p class="measure">The analysis covers two cohorts only. Billing churn is inferred from the auto-renew flag, not confirmed as a failed payment. The failed-payment flag may include free trials or coupons. Revenue is list price, not the amount actually paid.</p>
+
+<p style="margin-top:40px"><a href="../projects.html">Back to all projects</a></p>
+
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Shriya Wadetwar</span>
+    <span class="footer-links">
+      <!-- EDIT: replace with your LinkedIn profile URL -->
+      <a href="https://www.linkedin.com/in/your-profile">LinkedIn</a>
+      <a href="https://github.com/shriyavirendra">GitHub</a>
+      <!-- EDIT: replace with your email address -->
+      <a href="mailto:your.email@example.com">Email</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>

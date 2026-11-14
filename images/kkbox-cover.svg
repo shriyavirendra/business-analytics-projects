@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" role="img" aria-label="Churn rate rising from 6.39% to 8.99%">
+  <rect width="520" height="340" fill="#ECEFF5"/>
+  <text x="32" y="56" font-family="Georgia, serif" font-size="20" fill="#566072">Monthly churn rate</text>
+  <rect x="80" y="210" width="150" height="70" fill="#9AA6BD"/>
+  <rect x="290" y="150" width="150" height="130" fill="#1D4ED8"/>
+  <line x1="48" y1="280" x2="472" y2="280" stroke="#101828" stroke-width="2"/>
+  <text x="155" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#101828">6.39%</text>
+  <text x="365" y="138" text-anchor="middle" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#101828">8.99%</text>
+  <text x="155" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#566072">February</text>
+  <text x="365" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#566072">March</text>
+</svg>
